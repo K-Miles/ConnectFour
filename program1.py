@@ -2,8 +2,10 @@ from random import randint
 
 board = []
 
-for x in range(6):
+for x in range(0, 6):
   board.append(["O"] * 7)
+
+print board
 
 def print_board(board):
  r = 0
