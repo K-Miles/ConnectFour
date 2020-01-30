@@ -40,22 +40,22 @@ for row in enumerate(board):
 num = 0
 row = 5
 
-col = int(raw_input("Type the column number you would like to place your chip in"))
+col = int(raw_input("Type the column number you would like to place your chip in: "))
 
-def change_board(board):
-	target = board [row] [col]
-	while target == 0:
+def change_board(board, row, col):
+	target = board[row][col]
+	if target == 0:
 		target = target + 1
 	 	board[row][col] = target
-	while target == 1:
+	if target == 1:
 		row = row - 1
-		change_board(board)
+		change_board(board, row, col)
 
 
 def player1(num):
 	num = col
 	if num < 7:
-		change_board(board)
+		change_board(board, row, col)
 		target = target + 1
 	else:
 		print "The column number must be 0, 1, 2, 3, 4, 5, or 6. Please try again"
@@ -66,7 +66,7 @@ num = 0
 def player2(num):
     num = col
     if num < 7:
-        change_board(board)
+        change_board(board, row)
         target = target - 1
     else:
         print "The column number must be 0, 1, 2, 3, 4, 5, or 6. Please try again"
@@ -79,8 +79,6 @@ print"Player one's turn"
 
 print "________________________\n"
 
-change_board(board)
-
 player1(num)
 
 print board
@@ -90,8 +88,6 @@ print "\n"
 print "Player two's turn"
 
 print "________________________\n"
-
-change_board(board)
 
 player2(num)
 #insert_chip(col_num)
