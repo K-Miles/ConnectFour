@@ -36,7 +36,7 @@ print('________________________________________\n')
 print("Changed board is \n")
 for row in enumerate(board):
     print row
-##########################################my weird code starts here, gotta make changes
+
 num = 0
 row = 5
 
@@ -73,7 +73,7 @@ def player2(num):
 
 print board
 
-print("\n")
+print"\n"
 
 print"Player one's turn"
 
