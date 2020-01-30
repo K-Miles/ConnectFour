@@ -2,8 +2,9 @@ from random import randint
 
 board = []
 
-for x in range(0, 6):
-  board.append(["O"] * 7)
+
+for x in range(6):
+  board.append([0] * 7) #7 are the collumns, 6 are the rows
 
 print board
 
