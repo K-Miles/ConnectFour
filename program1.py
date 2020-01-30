@@ -6,7 +6,6 @@ board = []
 for x in range(6):
   board.append([0] * 7) #7 are the collumns, 6 are the rows
 
-print board
 
 def print_board(board):
  r = 0
@@ -19,6 +18,7 @@ def print_board(board):
   r=r+1
 
 print "The original board is: \n"
+
 
 for row in enumerate(board):
     print row
@@ -37,13 +37,10 @@ print("Changed board is \n")
 for row in enumerate(board):
     print row
 #insert_chip(col_num)
-#Highest # row we can drop it into
+#Highest number row we can drop it into
 #check if there is a 1 or 2
 #for loop to go through list
-<<<<<<< HEAD
 #only write in the selected column
-
-
 
 
 
@@ -81,8 +78,5 @@ for row in enumerate(board):
 #     print_board(board)
 #     if turn == 3:
 #       print "Game Over"
-#     # Print (turn + 1) here!
-# #
-=======
-#only write in selected column
->>>>>>> 8486031f0efb4af65fcf4fb6400c07a80f976ded
+#      Print (turn + 1) here!
+#
