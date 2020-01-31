@@ -50,26 +50,11 @@ def change_board(board, row, col):
 	if target == 1:
 		row = row - 1
 		change_board(board, row, col)
-
-
-def player1(num):
-	num = col
-	if num < 7:
-		change_board(board, row, col)
-		target = target + 1
-	else:
-		print "The column number must be 0, 1, 2, 3, 4, 5, or 6. Please try again"
-
-
-
-num = 0
-def player2(num):
-    num = col
-    if num < 7:
-        change_board(board, row)
-        target = target - 1
-    else:
-        print "The column number must be 0, 1, 2, 3, 4, 5, or 6. Please try again"
+        if row < 0:
+            print"That column is full. Please choose another column"
+            print"\n"
+            col = int(raw_input("Type the column number you would like to place your chip in: "))
+            change_board(board, row, col)
 
 print board
 
@@ -78,6 +63,19 @@ print"\n"
 print"Player one's turn"
 
 print "________________________\n"
+
+col = int(raw_input("Type the column number you would like to place your chip in: "))
+
+def player1(num):
+	num = col
+	if num < 7:
+		change_board(board, row, col)
+		target = target + 1
+	else:
+            print "The column number must be 0, 1, 2, 3, 4, 5, or 6. Please try again"
+        print "\n"
+        col = int(raw_input("Type the column number you would like to place your chip in: "))
+        player1(num)
 
 player1(num)
 
@@ -88,6 +86,19 @@ print "\n"
 print "Player two's turn"
 
 print "________________________\n"
+
+col = int(raw_input("Type the column number you would like to place your chip in: "))
+
+def player2(num):
+    num = col
+    if num < 7:
+        change_board(board, row)
+        target = target - 2
+    else:
+        print "The column number must be 0, 1, 2, 3, 4, 5, or 6. Please try again"
+        print "\n"
+        col = int(raw_input("Type the column number you would like to place your chip in: "))
+        player2(num)
 
 player2(num)
 #insert_chip(col_num)
