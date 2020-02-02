@@ -18,6 +18,7 @@ def print_board(board):
   r=r+1
 
 print "The original board is: \n"
+col = int(raw_input("Type the column number you would like to place your chip in: "))
 
 
 for row in enumerate(board):
