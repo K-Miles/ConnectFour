@@ -24,6 +24,13 @@ def change_board(board, row, col):
    col = int(raw_input("Type the column number you would like to place your chip in: "))
    change_board(board, row, col)
 
+def change_board(board: list, row: int, col: int):
+
+    #Detects coordinates
+    #Places chip
+
+    return new_board_with_chip: list
+
 def player1(board, row, col):
   print row
   print col
