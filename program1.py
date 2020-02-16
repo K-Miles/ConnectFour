@@ -28,17 +28,22 @@ def print_board(board):
 
 def player1(board, col):
   #turn = turn + 1
-  result = change_board(board, col, 1)
-  print ("Player one " + str(result))
+  chipin = change_board(board, col, 1)
+  return chipin
 
 def player2(board, col):
   #turn = turn + 1
-    result = change_board(board, col, 2)
-    print ("Player two " + str(result))
+    chipin = change_board(board, col, 2)
+    return chipin
+
+def IsBoardFull(board):
+
+#use loop to check if each column is full
 
 ##########################################################################
 # main program block
 ##########################################################################
+
 board = []
 
 for x in range(6):
@@ -51,40 +56,54 @@ target = 0
 
 print_board(board)
 
+#use function IsBoardFull in the while condition instead of 1 == 1
+
 while 1 == 1:
     print("\n")
 
-    print ("Player one's turn")
+    print ("Player One's turn")
 
     print ("________________________\n")
 
-    col = 0
-    while 1==1: #to make better next session
-        col = int(input("Type the column number you would like to place your chip in: "))
-        if col >= 0 and col <= 6:
-            break
-        else:
-            print ("Please enter a number between 0 and 6")
 
-    player1(board, col)
+    chipin = False
+    while chipin == False:
+        col = -1
+        while col < 0 or col > 6:
+            col = int(input("Player One: Type the column number you would like to place your chip in: "))
+            if col < 0 or col > 6:
+                print ("Player One: Please enter a number between 0 and 6")
+        chipin = player1(board, col)
+        if chipin == False:
+            print ("Player One: Please pick a different column. This column is full")
+        else:
+            break
+
+    print ("Player One:" + str(chipin))
 
     print_board(board)
 
     print ("\n")
 
-    print ("Player two's turn")
+    print ("Player Two's turn")
 
     print ("________________________\n")
 
-    while 1==1: #to make better next session
-        col = int(input("Type the column number you would like to place your chip in: "))
-        if col >= 0 and col <= 6:
-            print ("\n")
-            break
+    chipin = False
+    while chipin == False:
+        col = -1
+        while col < 0 and col > 6:
+            col = int(input("Player Two: Type the column number you would like to place your chip in: "))
+            if col < 0 or col > 6:
+                print ("\n")
+                break
+        chipin = player2(board, col)
+        if chipin == False:
+            print ("Player Two: Please pick a different column. This column is full")
         else:
-            print ("Please enter a number between 0 and 6")
+            break
 
-    player2(board, col)
+    print ("Player Two: " + str(chipin))
 
     print_board(board)
 
