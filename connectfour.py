@@ -37,6 +37,7 @@ def player2(board, col):
     return chipin
 
 def IsBoardFull(board):
+    return False
 
 #use loop to check if each column is full
 
