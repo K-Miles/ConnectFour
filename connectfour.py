@@ -38,17 +38,27 @@ def IsBoardFull(board):
 
     return False
 
+#deosn't add a point to whichever player gets four in a row
 def FourInARowCol(board):
     print("hi")
-    for row in range(len(board) - 4):
+    for row in range(len(board) - 3):
         for col in range(len(board)):
             if (board[row][col] == board[row + 1][col]) and (board[row + 2][col] == board[row+3][col]) and (board[row][col] == board[row + 2][col]):
                 if board[row][col] == 1:
+                    print('Player 1 has scored four in a row')
                     player1_score += 1
                 elif board[row][col] == 2:
                     player2_score += 1
                 else:
                     pass
+
+def getColumnValues(board, col):
+    #board is a 2dlist.
+
+    column_values = board[:][column]
+    return column_values
+
+    #return 1d list of all values in the column
 
 
 def FourInARowRow(board):
@@ -67,6 +77,24 @@ def FourInARowRow(board):
 def FourInARowDiagonal(board):
 
     return False
+
+#takes a column, then creates a list with all the pieces from that column
+def extract_column(column_number, test_board):
+  column = []
+  for row in range(len(test_board)):
+    chip = test_board[row][column_number-1]
+    #print(chip)
+    column.append(chip)
+  return column
+
+def check_match_of_column(extracted_column: list, chip_value: int) -> boolean:
+    #Ex: [0, 1, 1, 1, 1, 0] -> True
+    #Ex: [0, 1, 1, 1, 0, 0] -> False
+    #Ex: [0, 0, 1, 1, 1, 1] -> True
+    #Ex: [1, 1, 1, 0, 1, 1] -> False
+    #Ex: [0, 0, 0, 0, 0, 0] -> False
+    #Ex: [0, 0, 0, 0, 0, 0]  AND chip_value is 0 -> True
+    #Returns true if four in a row, anywhere.
 
 #use loop to check if each column is full
 
