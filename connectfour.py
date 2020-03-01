@@ -1,7 +1,6 @@
 ##########################################################################
 # preperation to main code block
-player1_score = 0
-player2_score = 0
+
 def change_board(board: list, col: int, player_chip: int): #target = number (ex: 1 or 2)
     row_default = 5
     chipin = False
@@ -13,9 +12,28 @@ def change_board(board: list, col: int, player_chip: int): #target = number (ex:
             break
         else:
             row_default = row_default - 1
+
     if chipin == True:
-        FourInARowCol(board)
+        #FourInARowCol(board)
+
+        for i in range(1, 7):
+            column = extract_column(i, board)
+            isscored = check_match_of_column(column, player_chip)
+            print(player1_score)
+            if isscored == True:
+                if player_chip == 1:
+                    increase_player1_score()
+                elif player_chip == 2:
+                    player2_score = player2_score + 1
+
     return chipin #returns if the chip was placed
+
+
+def increase_player1_score():
+    player1_score = 1
+
+def increase_player2_score():
+    player2_score = 1
 
 def print_board(board):
     for r in enumerate(board):
@@ -79,17 +97,30 @@ def extract_column(column_number, board):
     chip = board[row][column_number - 1]
     #print(chip)
     column.append(chip)
-  print("hello")
-  check_match_of_column(2, 1)
+
+  print("Column: " + str(column_number))
+  #print (column)
+  for item in column:
+      print("[" + str(item) +"]")
+
+
+  #check_match_of_column(2, 1)
   return column
 
 #checks if there are four of the same number in a row
-def check_match_of_column(extracted_column: list, chip_value: int):
-    for col in range(len(column) - 3):
-        if col == col + 1 and col == col + 2 and col == col + 3:
-            return True
+def check_match_of_column(column: list, chip_value: int):
+    ctr = 0
+    for item in column:
+        #print("item " +str(item))
+        #print("chip_value " + str(chip_value))
+        #print("counter " + str(ctr))
+        if item == chip_value:
+            ctr = ctr + 1
+            if ctr == 4:
+                return True # point
         else:
-            return False
+            ctr = 0
+    return False
 
 #will award point
 def award_point(check_match_of_column):
@@ -110,9 +141,15 @@ def award_point(check_match_of_column):
     #Returns true if four in a row, anywhere.
 #use loop to check if each column is full
 #______________________________________________________
+
+
 ##########################################################################
 # main program block
 ##########################################################################
+
+player1_score = 0
+player2_score = 0
+
 
 board = []
 
