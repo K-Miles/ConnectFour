@@ -1,7 +1,14 @@
+#Global Variables
+###########################################
+
+player1_score = 0
+player2_score = 0
+
 ##########################################################################
 # preperation to main code block
 
 def change_board(board: list, col: int, player_chip: int): #target = number (ex: 1 or 2)
+    #Updating Board
     row_default = 5
     chipin = False
     while row_default >= 0:
@@ -12,28 +19,35 @@ def change_board(board: list, col: int, player_chip: int): #target = number (ex:
             break
         else:
             row_default = row_default - 1
-
     if chipin == True:
-        #FourInARowCol(board)
-
-        for i in range(1, 7):
-            column = extract_column(i, board)
+        #Detection / Player Score Increase
+        for column_num in range(1, 7):
+            column = extract_column(column_num, board)
             isscored = check_match_of_column(column, player_chip)
             print(player1_score)
             if isscored == True:
                 if player_chip == 1:
                     increase_player1_score()
                 elif player_chip == 2:
-                    player2_score = player2_score + 1
+                    increase_player2_score()
+        for row_num in range(1, 6):
+            isscoredRow = check_match_of_column(board[row_num], player_chip)
+        print (f"Row number is {row_num}")
+            if isscoredRow == True:
+                if player_chip == 1:
+                    increase_player1_score()
+                elif player_chip == 2:
+                    increase_player2_score()
 
     return chipin #returns if the chip was placed
 
-
 def increase_player1_score():
-    player1_score = 1
+    global player1_score
+    player1_score = player1_score + 1
 
 def increase_player2_score():
-    player2_score = 1
+    global player2_score
+    player2_score += 1
 
 def print_board(board):
     for r in enumerate(board):
@@ -51,30 +65,6 @@ def player2(board, col):
     return chipin
 
 def IsBoardFull(board):
-
-    return False
-
-#deosn't add a point to whichever player gets four in a row
-def FourInARowCol(board):
-    player1_score = 0
-    player2_score = 0
-    print("hi")
-    for row in range(len(board) - 3):
-        for col in range(len(board)):
-            if (board[row][col] == board[row + 1][col]) and (board[row + 2][col] == board[row+3][col]) and (board[row][col] == board[row + 2][col]):
-                if board[row][col] == 1:
-                    print('Player 1 has scored four in a row')
-                    player1_score += 1
-                elif board[row][col] == 2:
-                    player2_score += 1
-                else:
-                    pass
-
-def FourInARowRow(board):
-
-    return False
-
-def FourInARowDiagonal(board):
 
     return False
 
@@ -111,11 +101,9 @@ def extract_column(column_number, board):
 def check_match_of_column(column: list, chip_value: int):
     ctr = 0
     for item in column:
-        #print("item " +str(item))
-        #print("chip_value " + str(chip_value))
-        #print("counter " + str(ctr))
         if item == chip_value:
             ctr = ctr + 1
+            print (f"Counter is {ctr}")
             if ctr == 4:
                 return True # point
         else:
@@ -146,10 +134,6 @@ def award_point(check_match_of_column):
 ##########################################################################
 # main program block
 ##########################################################################
-
-player1_score = 0
-player2_score = 0
-
 
 board = []
 
