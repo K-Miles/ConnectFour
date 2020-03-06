@@ -23,9 +23,9 @@ def change_board(board: list, col: int, player_chip: int): #target = number (ex:
         #Detection / Player Score Increase
         for column_num in range(1, 7):
             column = extract_column(column_num, board)
-            isscored = check_match_of_column(column, player_chip)
+            isscoredCol = check_match_of_column(column, player_chip)
             print(player1_score)
-            if isscored == True:
+            if isscoredCol == True:
                 if player_chip == 1:
                     increase_player1_score()
                 elif player_chip == 2:
@@ -40,7 +40,7 @@ def change_board(board: list, col: int, player_chip: int): #target = number (ex:
                     increase_player2_score()
 
     return chipin #returns if the chip was placed
-
+#We can change the 2 functions into just the lines of code into the changeboard function
 def increase_player1_score():
     global player1_score
     player1_score = player1_score + 1
@@ -139,9 +139,6 @@ board = []
 
 for x in range(6):
   board.append([0] * 7) #7 are the columns, 6 are the rows
-
-num = 0
-target = 0
 
 print_board(board)
 
