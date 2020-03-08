@@ -3,14 +3,17 @@
 
 player1_score = 0
 player2_score = 0
-
-##########################################################################
+player1_name = ""
+player2_name = ""
+###########################################
 # preperation to main code block
+###########################################
 
 def change_board(board: list, col: int, player_chip: int): #target = number (ex: 1 or 2)
     #Updating Board
     row_default = 5
     chipin = False
+    clear_point(player_chip)
     while row_default >= 0:
         currentRow = board[row_default]
         if currentRow[col] == 0:
@@ -23,38 +26,26 @@ def change_board(board: list, col: int, player_chip: int): #target = number (ex:
         #Detection / Player Score Increase
         for column_num in range(1, 7):
             column = extract_column(column_num, board)
-            isscoredCol = check_match_of_column(column, player_chip)
+            isScoredCol = check_match_of_column(column, player_chip)
             print(player1_score)
-            if isscoredCol == True:
-                if player_chip == 1:
-                    increase_player1_score()
-                elif player_chip == 2:
-                    increase_player2_score()
-        for row_num in range(1, 6):
-            isscoredRow = check_match_of_column(board[row_num], player_chip)
-        print (f"Row number is {row_num}")
-            if isscoredRow == True:
-                if player_chip == 1:
-                    increase_player1_score()
-                elif player_chip == 2:
-                    increase_player2_score()
+            award_point(isScoredCol, player_chip)
 
+        for row_num in range(1, 6):
+            isScoredRow = check_match_of_column(board[row_num], player_chip)
+            print (f"Row number is {row_num}")
+            award_point(isScoredRow, player_chip)
     return chipin #returns if the chip was placed
 #We can change the 2 functions into just the lines of code into the changeboard function
-def increase_player1_score():
-    global player1_score
-    player1_score = player1_score + 1
-
-def increase_player2_score():
-    global player2_score
-    player2_score += 1
-
 def print_board(board):
+    global player1_name
+    global player2_name
     for r in enumerate(board):
         print (r)
     print ("\n")
-    print ("Player One Score = " + str(player1_score))
-    print ("Player Two Score = " + str(player2_score))
+    print("**********Score Board**********")
+    print (f"{player1_name} = " + str(player1_score))
+    print (f"{player2_name} = " + str(player2_score))
+    print("*******************************")
 
 def player1(board, col, player = 1):
   chipin = change_board(board, col, player)
@@ -84,11 +75,11 @@ def getColumnValues(board, col):
 def extract_column(column_number, board):
   column = []
   for row in range(len(board)):
-    chip = board[row][column_number - 1]
+    chip = board[row][column_number - 1] #Converts index count to regular counting
     #print(chip)
     column.append(chip)
 
-  print("Column: " + str(column_number))
+  print("Column: " + str(column_number + 1)) #Converts index count to regular counting
   #print (column)
   for item in column:
       print("[" + str(item) +"]")
@@ -111,25 +102,24 @@ def check_match_of_column(column: list, chip_value: int):
     return False
 
 #will award point
-def award_point(check_match_of_column):
-    if check_match_of_column == True:
-        if chip_value == 1:
+def award_point(isScored, player_chip):
+    global player1_score
+    global player2_score
+    if isScored == True:
+        if player_chip == 1:
             player1_score += 1
-        elif chip_value == 2:
+        elif player_chip == 2:
             player2_score += 1
+
+#This function is used to reset player score to award repeated score since change board function--
+#scans each column and each row for every instance
+def clear_point(player_chip):
+    global player1_score
+    global player2_score
+    if player_chip == 1:
+        player1_score = 0
     else:
-        pass
-
-    #Ex: [0, 1, 1, 1, 1, 0] -> True
-    #Ex: [0, 1, 1, 1, 0, 0] -> False
-    #Ex: [0, 0, 1, 1, 1, 1] -> True
-    #Ex: [1, 1, 1, 0, 1, 1] -> False
-    #Ex: [0, 0, 0, 0, 0, 0] -> False
-    #Ex: [0, 0, 0, 0, 0, 0]  AND chip_value is 0 -> True
-    #Returns true if four in a row, anywhere.
-#use loop to check if each column is full
-#______________________________________________________
-
+        player2_score = 0
 
 ##########################################################################
 # main program block
@@ -141,6 +131,9 @@ for x in range(6):
   board.append([0] * 7) #7 are the columns, 6 are the rows
 
 print_board(board)
+
+player1_name = input("Player 1, what is your name: ")
+player2_name = input("Player 2, what is your name: ")
 
 #use function IsBoardFull in the while condition instead of 1 == 1
 
