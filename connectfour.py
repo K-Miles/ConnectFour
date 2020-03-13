@@ -47,13 +47,9 @@ def print_board(board):
     print (f"{player2_name} = " + str(player2_score))
     print("*******************************")
 
-def player1(board, col, player = 1):
-  chipin = change_board(board, col, player)
-  return chipin
-
-def player2(board, col):
-    chipin = change_board(board, col, 2)
-    return chipin
+def newBoard(board, col, playerChipNumber):
+    boardUpdated = change_board(board, col, playerChipNumber)
+    return boardUpdated
 
 def IsBoardFull(board):
 
@@ -152,7 +148,7 @@ while 1 == 1:
             col = int(input("Player One: Type the column number you would like to place your chip in: "))
             if col < 0 or col > 6:
                 print ("Player One: Please enter a number between 0 and 6")
-        chipin = player1(board, col)
+        chipin = newBoard(board, col, 1)
         if chipin == False:
             print ("Player One: Please pick a different column. This column is full")
         else:
@@ -176,7 +172,7 @@ while 1 == 1:
             if col < 0 or col > 6:
                 print ("\n")
                 break
-        chipin = player2(board, col)
+        chipin = newBoard(board, col, 2)
         if chipin == False:
             print ("Player Two: Please pick a different column. This column is full")
         else:
