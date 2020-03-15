@@ -1,6 +1,5 @@
 #Global Variables
 ###########################################
-
 player1_score = 0
 player2_score = 0
 player1_name = ""
@@ -8,7 +7,6 @@ player2_name = ""
 ###########################################
 # preperation to main code block
 ###########################################
-
 def change_board(board: list, col: int, player_chip: int): #target = number (ex: 1 or 2)
     #Updating Board
     row_default = 5
@@ -24,16 +22,35 @@ def change_board(board: list, col: int, player_chip: int): #target = number (ex:
             row_default = row_default - 1
     if chipin == True:
         #Detection / Player Score Increase
-        for column_num in range(1, 7):
+        for column_num in range(1, 7): #1 to 7 columns
             column = extract_column(column_num, board)
             isScoredCol = check_match_of_column(column, player_chip)
             print(player1_score)
             award_point(isScoredCol, player_chip)
 
-        for row_num in range(1, 6):
+        for row_num in range(1, 6): #1 to 6 Rows
             isScoredRow = check_match_of_column(board[row_num], player_chip)
             print (f"Row number is {row_num}")
             award_point(isScoredRow, player_chip)
+
+        middle_dia = extract_dia(board, 6)
+        isScoredDia = check_match_of_column(middle_dia, player_chip)
+        award_point(isScoredDia, player_chip)
+        low_middle_dia = extract_lowmid_dia(board, 6)
+        isScoredDia = check_match_of_column(low_middle_dia, player_chip)
+        award_point(isScoredDia, player_chip)
+        high_middle_dia = extract_highmid_dia(board, 6)
+        isScoredDia = check_match_of_column(high_middle_dia, player_chip)
+        award_point(isScoredDia, player_chip)
+        higher_middle_dia = extract_highermid_dia(board, 5)
+        isScoredDia = check_match_of_column(higher_middle_dia, player_chip)
+        award_point(isScoredDia, player_chip)
+        highest_middle_dia = extract_highestmid_dia(board, 4)
+        isScoredDia = check_match_of_column(highest_middle_dia, player_chip)
+        award_point(isScoredDia, player_chip)
+        lowest_middle_dia = extract_lowestmid_dia(board, 6)
+        isScoredDia = check_match_of_column(lowest_middle_dia, player_chip)
+        award_point(isScoredDia, player_chip)
     return chipin #returns if the chip was placed
 #We can change the 2 functions into just the lines of code into the changeboard function
 def print_board(board):
@@ -62,10 +79,6 @@ def getColumnValues(board, col):
     return column_values
 
     #return 1d list of all values in the column
-
-#new functions
-#if used we need to change other parts of the code!!!!!!
-#______________________________________________________________
 
 #takes a column, then creates a list with all the pieces from that column
 def extract_column(column_number, board):
@@ -116,6 +129,55 @@ def clear_point(player_chip):
         player1_score = 0
     else:
         player2_score = 0
+
+def extract_dia(board, limit):
+    diagonal = []
+    chip = 0
+    for chip in range(limit):
+        print (str(chip) + ", " + str(chip))
+        #print (board[chip][chip])
+        diagonal.append(board[chip][chip])
+    return diagonal
+
+def extract_lowmid_dia(board, limit):
+    diagonal = []
+    chip = 0
+    for chip in range(1, limit):
+        print(str(chip) + ", " + str(chip - 1))
+        diagonal.append(board[chip][chip - 1])
+    return diagonal
+
+def extract_highmid_dia(board, limit):
+    diagonal = []
+    chip = 0
+    for chip in range(0, limit):
+        print(str(chip) + ", " + str(chip + 1))
+        diagonal.append(board[chip][chip + 1])
+    return diagonal
+
+def extract_highermid_dia(board, limit):
+    diagonal = []
+    chip = 0
+    for chip in range(0, limit):
+        print(str(chip) + ", " + str(chip + 2))
+        diagonal.append(board[chip][chip + 2])
+    return diagonal
+
+def extract_highestmid_dia(board, limit):
+    diagonal = []
+    chip = 0
+    for chip in range(0, limit):
+        print(str(chip) + ", " + str(chip + 3))
+        diagonal.append(board[chip][chip + 3])
+    return diagonal
+
+def extract_lowestmid_dia(board, limit):
+    diagonal = []
+    chip = 0
+    for chip in range(2, limit):
+        print(str(chip) + ", " + str(chip - 2))
+        diagonal.append(board[chip][chip - 2])
+    return diagonal
 
 ##########################################################################
 # main program block
