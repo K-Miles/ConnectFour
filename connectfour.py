@@ -190,6 +190,16 @@ for x in range(6):
 
 print_board(board)
 
+print("""Welcome to connectfour.py, made by AW and MK.
+
+In order to play the game, you will input numbers from 0-6 to represent the collumns of the Connect Four board.
+
+Player 1 will be named your name, but be represented by a 1. Same with Player 2.
+
+Hope you enjoy playing connectfour.py,
+AW and MK""")
+
+print("\n")
 player1_name = input("Player 1, what is your name: ")
 player2_name = input("Player 2, what is your name: ")
 
@@ -198,7 +208,7 @@ player2_name = input("Player 2, what is your name: ")
 while 1 == 1:
     print("\n")
 
-    print ("Player One's turn")
+    print (f"{player1_name}'s turn")
 
     print ("________________________\n")
 
@@ -207,22 +217,22 @@ while 1 == 1:
     while chipin == False:
         col = -1
         while col < 0 or col > 6:
-            col = int(input("Player One: Type the column number you would like to place your chip in: "))
+            col = int(input(f"{player1_name}: Type the column number you would like to place your chip in: "))
             if col < 0 or col > 6:
-                print ("Player One: Please enter a number between 0 and 6")
+                print (f"{player1_name}: Please enter a number between 0 and 6")
         chipin = newBoard(board, col, 1)
         if chipin == False:
-            print ("Player One: Please pick a different column. This column is full")
+            print (f"{player1_name}: Please pick a different column. This column is full")
         else:
             break
 
-    print ("Player One:" + str(chipin))
+    print (f"{player1_name}:" + str(chipin))
 
     print_board(board)
 
     print ("\n")
 
-    print ("Player Two's turn")
+    print (f"{player2_name}'s turn")
 
     print ("________________________\n")
 
@@ -230,16 +240,16 @@ while 1 == 1:
     while not chipin:
         col = -1
         while col < 0 or col > 6:
-            col = int(input("Player Two: Type the column number you would like to place your chip in: "))
+            col = int(input(f"{player2_name}: Type the column number you would like to place your chip in: "))
             if col < 0 or col > 6:
                 print ("\n")
                 break
         chipin = newBoard(board, col, 2)
         if chipin == False:
-            print ("Player Two: Please pick a different column. This column is full")
+            print (f"{player2_name}: Please pick a different column. This column is full")
         else:
             break
 
-    print ("Player Two: " + str(chipin))
+    print (f"{player2_name}: " + str(chipin))
 
     print_board(board)
