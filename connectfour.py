@@ -5,7 +5,7 @@ player2_score = 0
 player1_name = ""
 player2_name = ""
 ###########################################
-# preperation to main code block
+# functions for the board - begin block
 ###########################################
 def change_board(board: list, col: int, player_chip: int): #target = number (ex: 1 or 2)
     #Updating Board
@@ -33,22 +33,22 @@ def change_board(board: list, col: int, player_chip: int): #target = number (ex:
             print (f"Row number is {row_num}")
             award_point(isScoredRow, player_chip)
 
-        middle_dia = extract_dia(board, 6)
+        middle_dia = extract_dia_special(board, 6, 0)
         isScoredDia = check_match_of_column(middle_dia, player_chip)
         award_point(isScoredDia, player_chip)
-        low_middle_dia = extract_lowmid_dia(board, 6)
+        low_middle_dia = extract_dia_special(board, 6, -1)
         isScoredDia = check_match_of_column(low_middle_dia, player_chip)
         award_point(isScoredDia, player_chip)
-        high_middle_dia = extract_highmid_dia(board, 6)
+        high_middle_dia = extract_dia_special(board, 6, 1)
         isScoredDia = check_match_of_column(high_middle_dia, player_chip)
         award_point(isScoredDia, player_chip)
-        higher_middle_dia = extract_highermid_dia(board, 5)
+        higher_middle_dia = extract_dia_special(board, 5, 2)
         isScoredDia = check_match_of_column(higher_middle_dia, player_chip)
         award_point(isScoredDia, player_chip)
-        highest_middle_dia = extract_highestmid_dia(board, 4)
+        highest_middle_dia = extract_dia_special(board, 4, 3)
         isScoredDia = check_match_of_column(highest_middle_dia, player_chip)
         award_point(isScoredDia, player_chip)
-        lowest_middle_dia = extract_lowestmid_dia(board, 6)
+        lowest_middle_dia = extract_dia_special(board, 6, -2)
         isScoredDia = check_match_of_column(lowest_middle_dia, player_chip)
         award_point(isScoredDia, player_chip)
     return chipin #returns if the chip was placed
@@ -71,6 +71,10 @@ def newBoard(board, col, playerChipNumber):
 def IsBoardFull(board): #Not using
 
     return False
+
+###########################################
+# functions for the board - end block
+###########################################
 
 def getColumnValues(board, col):
     #board is a 2dlist.
@@ -130,7 +134,7 @@ def clear_point(player_chip):
     else:
         player2_score = 0
 
-def extract_dia(board, limit):
+def extract_dia(board, limit): #Not needed
     diagonal = []
     chip = 0
     for chip in range(limit):
@@ -139,7 +143,15 @@ def extract_dia(board, limit):
         diagonal.append(board[chip][chip])
     return diagonal
 
-def extract_lowmid_dia(board, limit):
+def extract_dia_special(board, limit, increment):
+    diagonal = []
+    chip = 0
+    for chip in range(1, limit):
+        print(str(chip) + ", " + str(chip + increment))
+        diagonal.append(board[chip][chip + increment])
+    return diagonal
+
+def extract_lowmid_dia(board, limit): #Not needed
     diagonal = []
     chip = 0
     for chip in range(1, limit):
@@ -147,7 +159,7 @@ def extract_lowmid_dia(board, limit):
         diagonal.append(board[chip][chip - 1])
     return diagonal
 
-def extract_highmid_dia(board, limit):
+def extract_highmid_dia(board, limit): #Not needed
     diagonal = []
     chip = 0
     for chip in range(0, limit):
@@ -155,7 +167,7 @@ def extract_highmid_dia(board, limit):
         diagonal.append(board[chip][chip + 1])
     return diagonal
 
-def extract_highermid_dia(board, limit):
+def extract_highermid_dia(board, limit): #Not needed
     diagonal = []
     chip = 0
     for chip in range(0, limit):
@@ -163,7 +175,7 @@ def extract_highermid_dia(board, limit):
         diagonal.append(board[chip][chip + 2])
     return diagonal
 
-def extract_highestmid_dia(board, limit):
+def extract_highestmid_dia(board, limit): #Not needed
     diagonal = []
     chip = 0
     for chip in range(0, limit):
@@ -171,7 +183,7 @@ def extract_highestmid_dia(board, limit):
         diagonal.append(board[chip][chip + 3])
     return diagonal
 
-def extract_lowestmid_dia(board, limit):
+def extract_lowestmid_dia(board, limit): #Not needed
     diagonal = []
     chip = 0
     for chip in range(2, limit):
@@ -217,9 +229,15 @@ while 1 == 1:
     while chipin == False:
         col = -1
         while col < 0 or col > 6:
-            col = int(input(f"{player1_name}: Type the column number you would like to place your chip in: "))
-            if col < 0 or col > 6:
-                print (f"{player1_name}: Please enter a number between 0 and 6")
+            try:
+                col = int(input(f"{player1_name}: Type the column number you would like to place your chip in: "))
+                if col < 0 or col > 6:
+                    print (f"{player1_name}: Please enter a number between 0 and 6")
+            except:
+                exit_input = input("Would you like to exit? [Y/N]")
+                if exit_input == "y" or exit_input == "Y":
+                    exit("Thank you for playing connectfour.py!")
+
         chipin = newBoard(board, col, 1)
         if chipin == False:
             print (f"{player1_name}: Please pick a different column. This column is full")
@@ -239,20 +257,17 @@ while 1 == 1:
     chipin = False
     while not chipin:
         col = -1
-        try:
-            while col < 0 or col > 6:
+        while col < 0 or col > 6:
+            try:
                 col = int(input(f"{player2_name}: Type the column number you would like to place your chip in: "))
                 if col < 0 or col > 6:
-                    print ("\n")
-                    break
+                    print (f"{player2_name}: Please enter a number between 0 and 6")
 
             # Someone types exit
-        except:
-            # print("EXCEPT BLOCK IS EXECUTING")
-            # col = str(col)
-            # print(f"COL IS {col}")
-            # if col == "exit":
-            exit("Thank you for playing connectfour.py!")
+            except:
+                exit_input = input("Would you like to exit? [Y/N]")
+                if exit_input == "y" or exit_input == "Y":
+                    exit("Thank you for playing connectfour.py!")
             # Break out of everything and end the program
 
         chipin = newBoard(board, col, 2)
