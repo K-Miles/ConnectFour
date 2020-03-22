@@ -68,7 +68,7 @@ def newBoard(board, col, playerChipNumber):
     boardUpdated = change_board(board, col, playerChipNumber)
     return boardUpdated
 
-def IsBoardFull(board):
+def IsBoardFull(board): #Not using
 
     return False
 
@@ -239,11 +239,22 @@ while 1 == 1:
     chipin = False
     while not chipin:
         col = -1
-        while col < 0 or col > 6:
-            col = int(input(f"{player2_name}: Type the column number you would like to place your chip in: "))
-            if col < 0 or col > 6:
-                print ("\n")
-                break
+        try:
+            while col < 0 or col > 6:
+                col = int(input(f"{player2_name}: Type the column number you would like to place your chip in: "))
+                if col < 0 or col > 6:
+                    print ("\n")
+                    break
+
+            # Someone types exit
+        except:
+            # print("EXCEPT BLOCK IS EXECUTING")
+            # col = str(col)
+            # print(f"COL IS {col}")
+            # if col == "exit":
+            exit("Thank you for playing connectfour.py!")
+            # Break out of everything and end the program
+
         chipin = newBoard(board, col, 2)
         if chipin == False:
             print (f"{player2_name}: Please pick a different column. This column is full")
